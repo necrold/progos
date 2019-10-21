@@ -16,15 +16,11 @@ public class SQL {
    public String felhasz=null;
    String jelszo=null;
    String Data=null;
-         String con="false";
-      Connection myconn=null;
-      Statement statment=null;
-      ResultSet myq=null;
+   String con="false";
+   Connection myconn=null;
+   Statement statment=null;
+   ResultSet myq=null;
     
- public SQL()
- {
-     
- }
  public SQL(String ip,String felhasz, String jelszo,String Data) {
      
      this.ip = ip;
@@ -32,6 +28,7 @@ public class SQL {
      this.jelszo=jelszo;
      this.Data=Data;
  }  
+
     
   public void error(String e)
   {
@@ -66,17 +63,17 @@ public class SQL {
       return con;
   }
   
-          public void query(String command)
+          public ResultSet query(String command)
           {
-
+              
+             
+           
       try{
-         
+          myconn=DriverManager.getConnection("jdbc:mysql://"+ip+"/"+Data+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",felhasz,jelszo);
+          statment=myconn.createStatement();
           myq=statment.executeQuery(command);            
-            while (myq.next())
-            {
-                System.out.println(myq.getString("iskola_Name"));
-            }
-     
+            
+         
         
       
       }
@@ -84,5 +81,6 @@ public class SQL {
          
          error(e.getMessage());
       }
+      return(myq);
   }
 }
