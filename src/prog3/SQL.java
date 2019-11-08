@@ -63,6 +63,22 @@ public class SQL {
       return con;
   }
   
+          public void Insert_Query(String Command)
+          {
+               try{
+          myconn=DriverManager.getConnection("jdbc:mysql://"+ip+"/"+Data+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",felhasz,jelszo);
+          statment=myconn.createStatement();
+          statment.executeUpdate(Command);            
+            
+        
+      
+      }
+      catch(Exception e){
+         
+         error(e.getMessage());
+      }
+    
+          }
           public ResultSet query(String command)
           {
               
@@ -73,7 +89,6 @@ public class SQL {
           statment=myconn.createStatement();
           myq=statment.executeQuery(command);            
             
-         
         
       
       }

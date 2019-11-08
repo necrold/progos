@@ -26,7 +26,7 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.awt.*;
-import com.sun.scenario.effect.ImageData;
+
 import java.awt.AWTException;
 import java.awt.Dimension;
 import java.awt.Graphics2D;

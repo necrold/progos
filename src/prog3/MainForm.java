@@ -57,6 +57,8 @@ public class MainForm extends javax.swing.JFrame {
         IskTanDiag_Button = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Főablak");
@@ -188,6 +190,32 @@ public class MainForm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Iskolák tanulói", jPanel3);
 
+        jButton2.setText("Feladat Beírása");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(195, 195, 195)
+                .addComponent(jButton2)
+                .addContainerGap(584, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(229, 229, 229)
+                .addComponent(jButton2)
+                .addContainerGap(238, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Dolgozat generátor", jPanel5);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -245,6 +273,12 @@ public class MainForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
+                    new Do_Be().setVisible(true);
+                          // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -288,6 +322,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> fenntarttip_ComboBox;
     private javax.swing.JComboBox<String> inttip_ComboBox;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -297,6 +332,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     public javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JComboBox<String> megye_ComboBox;
     private javax.swing.JComboBox<String> telep_ComboBox;
