@@ -6,9 +6,14 @@
 package prog3;
 
 import com.itextpdf.text.DocumentException;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -23,13 +28,14 @@ public class MainForm extends javax.swing.JFrame {
      public static String jelszo=null;
      public static String Data=null;
    public static int screenSize=0;
+   SQL kapcs=new SQL(ip,felhasz,jelszo,Data);
     /**
      * Creates new form MainForm
      */
     public MainForm() {
-        initComponents();
-        
-        
+        initComponents(); 
+        diakom_TextField.setDocument(new JTextFieldLimit(11));
+        iskom_TextField.setDocument(new JTextFieldLimit(11));
     }
 
     /**
@@ -47,12 +53,60 @@ public class MainForm extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         telep_ComboBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        inttip_ComboBox = new javax.swing.JComboBox<>();
+        feladattip_ComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         megye_ComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         fenntarttip_ComboBox = new javax.swing.JComboBox<>();
+        lekerdez_Button = new javax.swing.JButton();
+        szur_akt_CheckBox = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        iskolaTable = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        kereso_sor = new javax.swing.JTextField();
+        aktiv_CheckBox = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
+        jTabbedPane7 = new javax.swing.JTabbedPane();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        diakveznev_TextField = new javax.swing.JTextField();
+        diakkernev_TextField = new javax.swing.JTextField();
+        diakannya_TextField = new javax.swing.JTextField();
+        diakszulido_TextField = new javax.swing.JTextField();
+        diakfeltoltes_Button = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        diakom_TextField = new javax.swing.JTextField();
+        diakszulhely_ComboBox = new javax.swing.JComboBox<>();
+        diakintezmeny_ComboBox = new javax.swing.JComboBox<>();
+        jPanel7 = new javax.swing.JPanel();
+        fenntartofeltoltes_Button1 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        fenntnev_TextField = new javax.swing.JTextField();
+        fennttip_TextField = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
+        iskolafeltoltes_Button2 = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        iskom_TextField = new javax.swing.JTextField();
+        iskneve_TextField = new javax.swing.JTextField();
+        iskmegye_TextField = new javax.swing.JTextField();
+        iskcime_TextField = new javax.swing.JTextField();
+        iskaktiv_CheckBox = new javax.swing.JCheckBox();
+        isktelep_ComboBox = new javax.swing.JComboBox<>();
+        iskfenn_ComboBox = new javax.swing.JComboBox<>();
+        iskfeladat_ComboBox = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         IskTanDiag_Button = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
@@ -73,43 +127,140 @@ public class MainForm extends javax.swing.JFrame {
 
         jLabel2.setText("Település:");
 
-        telep_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        telep_ComboBox.setEnabled(false);
+        telep_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                telep_ComboBoxActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Intézmény típus:");
+        jLabel3.setText("Feladat:");
 
-        inttip_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        feladattip_ComboBox.setEnabled(false);
+        feladattip_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                feladattip_ComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Megye:");
 
-        megye_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        megye_ComboBox.setEnabled(false);
+        megye_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                megye_ComboBoxActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Fenntartó tip.:");
 
-        fenntarttip_ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        fenntarttip_ComboBox.setEnabled(false);
+        fenntarttip_ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fenntarttip_ComboBoxActionPerformed(evt);
+            }
+        });
+
+        lekerdez_Button.setText("Lekérdez / Frissít");
+        lekerdez_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lekerdez_ButtonActionPerformed(evt);
+            }
+        });
+
+        szur_akt_CheckBox.setText("Szűrők bekapcsolása");
+        szur_akt_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                szur_akt_CheckBoxActionPerformed(evt);
+            }
+        });
+
+        iskolaTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Iskola OM", "Iskola neve", "Település", "Megye", "Fenntartó", "Cím", "Feladat", "Aktív"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        iskolaTable.setPreferredSize(new java.awt.Dimension(300, 300));
+        iskolaTable.setShowGrid(true);
+        jScrollPane1.setViewportView(iskolaTable);
+
+        jLabel6.setText("Név:");
+
+        kereso_sor.setEnabled(false);
+        kereso_sor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                kereso_sorKeyReleased(evt);
+            }
+        });
+
+        aktiv_CheckBox.setText("Aktív");
+        aktiv_CheckBox.setEnabled(false);
+        aktiv_CheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aktiv_CheckBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lekerdez_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(telep_ComboBox, 0, 791, Short.MAX_VALUE)
-                    .addComponent(inttip_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(telep_ComboBox, 0, 806, Short.MAX_VALUE)
+                    .addComponent(feladattip_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(megye_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(fenntarttip_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(fenntarttip_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(szur_akt_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(kereso_sor, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(aktiv_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 23, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addGap(4, 4, 4)
+                .addComponent(lekerdez_Button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(szur_akt_CheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -121,28 +272,281 @@ public class MainForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(inttip_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(feladattip_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(fenntarttip_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 372, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(kereso_sor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(aktiv_CheckBox))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Lekérdezés", jPanel1);
+
+        jLabel7.setText("Vezetéknév:");
+
+        jLabel8.setText("Keresztnév:");
+
+        jLabel9.setText("Annya neve:");
+
+        jLabel10.setText("Születési hely:");
+
+        jLabel11.setText("Születési idő:");
+
+        jLabel12.setText("Intézmény:");
+
+        diakfeltoltes_Button.setText("Feltölt");
+        diakfeltoltes_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diakfeltoltes_ButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Diák OM:");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(diakfeltoltes_Button)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diakveznev_TextField)
+                            .addComponent(diakkernev_TextField)
+                            .addComponent(diakannya_TextField)
+                            .addComponent(diakszulido_TextField)
+                            .addComponent(diakom_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE)
+                            .addComponent(diakszulhely_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(diakintezmeny_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(diakveznev_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(diakkernev_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(diakannya_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(diakszulhely_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(diakszulido_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(diakintezmeny_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(diakom_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addComponent(diakfeltoltes_Button)
+                .addContainerGap())
+        );
+
+        jTabbedPane7.addTab("Diák", jPanel6);
+
+        fenntartofeltoltes_Button1.setText("Feltölt");
+        fenntartofeltoltes_Button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fenntartofeltoltes_Button1ActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setText("Fenntartó neve:");
+
+        jLabel15.setText("Fenntartó típusa:");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(400, Short.MAX_VALUE)
+                        .addComponent(fenntartofeltoltes_Button1)
+                        .addGap(0, 390, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fenntnev_TextField)
+                            .addComponent(fennttip_TextField))))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(fenntnev_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(fennttip_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
+                .addComponent(fenntartofeltoltes_Button1)
+                .addContainerGap())
+        );
+
+        jTabbedPane7.addTab("Fenntartó", jPanel7);
+
+        iskolafeltoltes_Button2.setText("Feltölt");
+        iskolafeltoltes_Button2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                iskolafeltoltes_Button2ActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Iskola OM:");
+
+        jLabel17.setText("Neve:");
+
+        jLabel18.setText("Település:");
+
+        jLabel19.setText("Megye:");
+
+        jLabel20.setText("Fenntartó:");
+
+        jLabel21.setText("Ellátott feladat:");
+
+        jLabel22.setText("Aktív:");
+
+        jLabel23.setText("Cím:");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap(400, Short.MAX_VALUE)
+                        .addComponent(iskolafeltoltes_Button2)
+                        .addGap(0, 390, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(iskom_TextField)
+                            .addComponent(iskneve_TextField)
+                            .addComponent(iskmegye_TextField)
+                            .addComponent(iskcime_TextField)
+                            .addComponent(isktelep_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(iskfenn_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel8Layout.createSequentialGroup()
+                                .addComponent(iskaktiv_CheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(iskfeladat_ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(iskom_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(iskneve_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(isktelep_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(iskmegye_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(iskfenn_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21)
+                    .addComponent(iskfeladat_ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel22)
+                    .addComponent(iskaktiv_CheckBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(iskcime_TextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addComponent(iskolafeltoltes_Button2)
+                .addContainerGap())
+        );
+
+        jTabbedPane7.addTab("Iskola", jPanel8);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 886, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane7)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane7)
+                .addGap(49, 49, 49))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Feltöltés", jPanel2);
 
         IskTanDiag_Button.setText("Tanulók létszáma iskolánként");
         IskTanDiag_Button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,6 +636,78 @@ public class MainForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+       jTabbedPane1.setSize(getSize());
+        
+      
+    }//GEN-LAST:event_formComponentResized
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
+                    new Do_Be().setVisible(true);
+                          // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void lekerdez_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lekerdez_ButtonActionPerformed
+        controler.feltolt_tabla(iskolaTable);
+        controler.feltolt_combo(megye_ComboBox,telep_ComboBox,fenntarttip_ComboBox,feladattip_ComboBox,diakszulhely_ComboBox,diakintezmeny_ComboBox,isktelep_ComboBox,iskfenn_ComboBox,iskfeladat_ComboBox);
+    }//GEN-LAST:event_lekerdez_ButtonActionPerformed
+
+    private void aktiv_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktiv_CheckBoxActionPerformed
+        if(szur_akt_CheckBox.isSelected()){
+            controler.aktiv_filter_Check(aktiv_CheckBox, iskolaTable);
+        }
+    }//GEN-LAST:event_aktiv_CheckBoxActionPerformed
+
+    private void megye_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_megye_ComboBoxActionPerformed
+       if(szur_akt_CheckBox.isSelected()){
+           controler.kereses(megye_ComboBox, iskolaTable,3);
+       }
+    }//GEN-LAST:event_megye_ComboBoxActionPerformed
+
+    private void szur_akt_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_szur_akt_CheckBoxActionPerformed
+        if (!szur_akt_CheckBox.isSelected()){
+            iskolaTable.setRowSorter(null);
+            megye_ComboBox.setEnabled(false);
+            telep_ComboBox.setEnabled(false);
+            fenntarttip_ComboBox.setEnabled(false);
+            feladattip_ComboBox.setEnabled(false);
+            aktiv_CheckBox.setEnabled(false);
+            kereso_sor.setEnabled(false);
+        }else{
+            megye_ComboBox.setEnabled(true);
+            telep_ComboBox.setEnabled(true);
+            fenntarttip_ComboBox.setEnabled(true);
+            feladattip_ComboBox.setEnabled(true);
+            aktiv_CheckBox.setEnabled(true);
+            kereso_sor.setEnabled(true);
+        }
+    }//GEN-LAST:event_szur_akt_CheckBoxActionPerformed
+
+    private void telep_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telep_ComboBoxActionPerformed
+        if(szur_akt_CheckBox.isSelected()){
+           controler.kereses(telep_ComboBox, iskolaTable,2);
+       } 
+    }//GEN-LAST:event_telep_ComboBoxActionPerformed
+
+    private void feladattip_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feladattip_ComboBoxActionPerformed
+        if(szur_akt_CheckBox.isSelected()){
+           controler.kereses(feladattip_ComboBox, iskolaTable,6);
+       } 
+    }//GEN-LAST:event_feladattip_ComboBoxActionPerformed
+
+    private void fenntarttip_ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fenntarttip_ComboBoxActionPerformed
+        if(szur_akt_CheckBox.isSelected()){
+           controler.kereses(fenntarttip_ComboBox, iskolaTable,4);
+       }
+    }//GEN-LAST:event_fenntarttip_ComboBoxActionPerformed
+
+    private void kereso_sorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kereso_sorKeyReleased
+        if(szur_akt_CheckBox.isSelected()){
+           controler.kereses(kereso_sor, iskolaTable,1);
+       }
+    }//GEN-LAST:event_kereso_sorKeyReleased
+
     private void IskTanDiag_ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IskTanDiag_ButtonMouseClicked
 
         diagrammok diag=new diagrammok();
@@ -242,42 +718,36 @@ public class MainForm extends javax.swing.JFrame {
         }
         JFrame frame=new JFrame("Főablak");
         frame.setResizable(true);
-       
-     
+
     }//GEN-LAST:event_IskTanDiag_ButtonMouseClicked
 
-    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-       jTabbedPane1.setSize(getSize());
-        
-      
-    }//GEN-LAST:event_formComponentResized
-
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-      
+
         diagrammok diag=new diagrammok();
-        
-        
-         try {
-             diag.pdfcreater(jPanel4);
-         } catch (DocumentException ex) {
-             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (IOException ex) {
-             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (SQLException ex) {
-             Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        
-       
-        
-     
-        
+
+        try {
+            diag.pdfcreater(jPanel4);
+        } catch (DocumentException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void diakfeltoltes_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diakfeltoltes_ButtonActionPerformed
+controler.diakfeltoltes(diakveznev_TextField,diakkernev_TextField,diakannya_TextField,diakszulido_TextField,diakom_TextField,diakszulhely_ComboBox,diakintezmeny_ComboBox);
+    }//GEN-LAST:event_diakfeltoltes_ButtonActionPerformed
 
-                    new Do_Be().setVisible(true);
-                          // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseClicked
+    private void iskolafeltoltes_Button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iskolafeltoltes_Button2ActionPerformed
+controler.iskfeltoltes(iskom_TextField, iskneve_TextField, iskmegye_TextField, iskcime_TextField, isktelep_ComboBox, iskfenn_ComboBox, iskfeladat_ComboBox, iskaktiv_CheckBox);
+    }//GEN-LAST:event_iskolafeltoltes_Button2ActionPerformed
+
+    private void fenntartofeltoltes_Button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fenntartofeltoltes_Button1ActionPerformed
+controler.fenntartFeltolt(fenntnev_TextField,fennttip_TextField);
+    }//GEN-LAST:event_fenntartofeltoltes_Button1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,25 +786,76 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
     }
-
+                                                                                       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton IskTanDiag_Button;
+    private javax.swing.JCheckBox aktiv_CheckBox;
+    private javax.swing.JTextField diakannya_TextField;
+    private javax.swing.JButton diakfeltoltes_Button;
+    private javax.swing.JComboBox<String> diakintezmeny_ComboBox;
+    private javax.swing.JTextField diakkernev_TextField;
+    private javax.swing.JTextField diakom_TextField;
+    private javax.swing.JComboBox<String> diakszulhely_ComboBox;
+    private javax.swing.JTextField diakszulido_TextField;
+    private javax.swing.JTextField diakveznev_TextField;
+    private javax.swing.JComboBox<String> feladattip_ComboBox;
+    private javax.swing.JButton fenntartofeltoltes_Button1;
     private javax.swing.JComboBox<String> fenntarttip_ComboBox;
-    private javax.swing.JComboBox<String> inttip_ComboBox;
+    private javax.swing.JTextField fenntnev_TextField;
+    private javax.swing.JTextField fennttip_TextField;
+    private javax.swing.JCheckBox iskaktiv_CheckBox;
+    private javax.swing.JTextField iskcime_TextField;
+    private javax.swing.JComboBox<String> iskfeladat_ComboBox;
+    private javax.swing.JComboBox<String> iskfenn_ComboBox;
+    private javax.swing.JTextField iskmegye_TextField;
+    private javax.swing.JTextField iskneve_TextField;
+    private javax.swing.JTable iskolaTable;
+    private javax.swing.JButton iskolafeltoltes_Button2;
+    private javax.swing.JTextField iskom_TextField;
+    private javax.swing.JComboBox<String> isktelep_ComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane7;
+    private javax.swing.JTextField kereso_sor;
+    private javax.swing.JButton lekerdez_Button;
     private javax.swing.JComboBox<String> megye_ComboBox;
+    private javax.swing.JCheckBox szur_akt_CheckBox;
     private javax.swing.JComboBox<String> telep_ComboBox;
     // End of variables declaration//GEN-END:variables
+ControlerClass controler =new ControlerClass();
+SimpleDateFormat datumformazo = new SimpleDateFormat("yyyy-MM-dd");
+
 }

@@ -50,7 +50,7 @@ public class SQL {
          {
              con="true";
          }
-        
+        myq.close();
       }
       catch(Exception e){
          
@@ -70,7 +70,7 @@ public class SQL {
           statment=myconn.createStatement();
           statment.executeUpdate(Command);            
             
-        
+        statment.close();
       
       }
       catch(Exception e){
@@ -87,15 +87,17 @@ public class SQL {
       try{
           myconn=DriverManager.getConnection("jdbc:mysql://"+ip+"/"+Data+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",felhasz,jelszo);
           statment=myconn.createStatement();
-          myq=statment.executeQuery(command);            
-            
+          myq=statment.executeQuery(command);           
         
-      
       }
       catch(Exception e){
          
          error(e.getMessage());
       }
+     
       return(myq);
+     
+              
+      
   }
 }
