@@ -184,7 +184,7 @@ public class MainForm extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
@@ -649,8 +649,16 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void lekerdez_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lekerdez_ButtonActionPerformed
+        if(!szur_akt_CheckBox.isSelected()){
         controler.feltolt_tabla(iskolaTable);
-        controler.feltolt_combo(megye_ComboBox,telep_ComboBox,fenntarttip_ComboBox,feladattip_ComboBox,diakszulhely_ComboBox,diakintezmeny_ComboBox,isktelep_ComboBox,iskfenn_ComboBox,iskfeladat_ComboBox);
+        controler.feltolt_combo(megye_ComboBox,telep_ComboBox,fenntarttip_ComboBox,feladattip_ComboBox,diakszulhely_ComboBox,diakintezmeny_ComboBox,isktelep_ComboBox,iskfenn_ComboBox,iskfeladat_ComboBox);  
+        }else{
+            szur_akt_CheckBox.setSelected(false);
+            controler.feltolt_tabla(iskolaTable);
+            controler.feltolt_combo(megye_ComboBox,telep_ComboBox,fenntarttip_ComboBox,feladattip_ComboBox,diakszulhely_ComboBox,diakintezmeny_ComboBox,isktelep_ComboBox,iskfenn_ComboBox,iskfeladat_ComboBox);
+            szur_akt_CheckBox.setSelected(true);
+        }
+
     }//GEN-LAST:event_lekerdez_ButtonActionPerformed
 
     private void aktiv_CheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aktiv_CheckBoxActionPerformed

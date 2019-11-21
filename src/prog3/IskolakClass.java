@@ -10,11 +10,10 @@ package prog3;
  * @author Alex
  */
  class IskolakClass {
-    private int iskola_OM;
-    private String iskola_Name, iskola_County, iskola_AddR,varos_NAME,fenntart_Name,feladat_Name;
+    private String iskola_Name, iskola_County, iskola_AddR,varos_NAME,fenntart_Name,feladat_Name,iskola_OM;
     private Boolean iskola_Enable;
     
-    public IskolakClass(int iskola_OM,String varos_NAME,String fenntart_Name,String feladat_Name, String iskola_Name,String iskola_County,String iskola_AddR,Boolean iskola_Enable){
+    public IskolakClass(String iskola_OM,String varos_NAME,String fenntart_Name,String feladat_Name, String iskola_Name,String iskola_County,String iskola_AddR,Boolean iskola_Enable){
     this.iskola_OM=iskola_OM;
     this.varos_NAME=varos_NAME;
     this.fenntart_Name=fenntart_Name;
@@ -25,7 +24,7 @@ package prog3;
     this.iskola_Enable=iskola_Enable;
     }
     
-    public int getiskola_OM(){
+    public String getiskola_OM(){
         return iskola_OM;
      }   
     public String getvaros_NAME(){

@@ -97,7 +97,7 @@ import static prog3.MainForm.jelszo;
           ResultSet rs=statment.executeQuery(query1);
           IskolakClass iskolak;
           while(rs.next()){
-              iskolak=new IskolakClass(rs.getInt("iskola_OM"), rs.getString("varos_NAME"), rs.getString("fenntart_Name"),rs.getString("feladat_Name"),rs.getString("iskola_Name"),rs.getString("iskola_County"),rs.getString("iskola_AddR"), rs.getBoolean("iskola_Enable"));
+              iskolak=new IskolakClass(rs.getString("iskola_OM"), rs.getString("varos_NAME"), rs.getString("fenntart_Name"),rs.getString("feladat_Name"),rs.getString("iskola_Name"),rs.getString("iskola_County"),rs.getString("iskola_AddR"), rs.getBoolean("iskola_Enable"));
               iskLista.add(iskolak);
           }
        }
@@ -112,6 +112,7 @@ import static prog3.MainForm.jelszo;
         ArrayList<IskolakClass> lista=iskolaLista();
         DefaultTableModel model=(DefaultTableModel)iskolaTable.getModel();
         model.setRowCount(0);
+            System.out.println(lista.size());
         Object[] sor=new Object[8];
         for(int i=0;i<lista.size();i++){
             sor[0]=lista.get(i).getiskola_OM();
@@ -220,7 +221,7 @@ import static prog3.MainForm.jelszo;
         String iskolaOM=iskom_TextField.getText();
         String iskolaNeve=iskneve_TextField.getText();
         String iskolaMegye=iskmegye_TextField.getText();
-        String iskolaVaros=String.valueOf(isktelep_ComboBox.getSelectedIndex()-1);
+        String iskolaVaros=String.valueOf(isktelep_ComboBox.getSelectedIndex()+1);
         String iskolaCime=iskcime_TextField.getText();
         String iskolaFenntarto=String.valueOf(iskfenn_ComboBox.getSelectedIndex()+1);
         String iskfeladat=String.valueOf(iskfeladat_ComboBox.getSelectedIndex()+1);
