@@ -123,5 +123,29 @@ public class diagrammok {
       DiaGramm(valami);
 }
   
+  public void Dog_save_Img(JPanel valami,String filename)
+  {
+      filename+=".jpg";
+     try {
+        imagebuf = new Robot().createScreenCapture(valami.bounds());
+    } catch (AWTException e1) {
+        // TODO Auto-generated catch block
+        e1.printStackTrace();
+    }  
+     Graphics2D graphics2D = imagebuf.createGraphics();
+     
+     valami.paint(graphics2D);
+    
+       
+     
+     try {
+        ImageIO.write(imagebuf,"jpeg", new File(filename));
+       
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        System.out.println("error");
+    }
+  }
+  
 }
 

@@ -30,7 +30,7 @@ public class Dolgozat {
       String felhasz=My.felhasz;
       String jelszo=My.jelszo;
       String data=My.Data;
-   
+    SQL Dog_Sql=new SQL(ip,felhasz,jelszo,data);
     public void feldolgoz(String kerdes, String feladat, String osztaly)
     {  
       if(kerdes.equals("")|| feladat.equals("")|| osztaly=="")
@@ -39,7 +39,7 @@ public class Dolgozat {
       }
       else
       {
-      SQL Dog_Sql=new SQL(ip,felhasz,jelszo,data);
+     
       String query="INSERT INTO dolgozat(DO_KERDES, DO_FELADAT, DO_OSZTALY) VALUES ";
       query+=("('");
       query+=kerdes;
@@ -61,6 +61,10 @@ public class Dolgozat {
         }
       }
      
+    }
+    public ResultSet lekerdez(String Q)
+    {
+        return(Dog_Sql.query(Q));
     }
     
 }

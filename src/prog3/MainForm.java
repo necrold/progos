@@ -27,6 +27,7 @@ public class MainForm extends javax.swing.JFrame {
      public static String felhasz=null;
      public static String jelszo=null;
      public static String Data=null;
+     public static String Osz=null;
    public static int screenSize=0;
    SQL kapcs=new SQL(ip,felhasz,jelszo,Data);
     /**
@@ -47,6 +48,8 @@ public class MainForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        iskolaTable = new javax.swing.JTable();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -60,8 +63,6 @@ public class MainForm extends javax.swing.JFrame {
         fenntarttip_ComboBox = new javax.swing.JComboBox<>();
         lekerdez_Button = new javax.swing.JButton();
         szur_akt_CheckBox = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        iskolaTable = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         kereso_sor = new javax.swing.JTextField();
         aktiv_CheckBox = new javax.swing.JCheckBox();
@@ -113,6 +114,35 @@ public class MainForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        Osztaly = new javax.swing.JComboBox<>();
+
+        iskolaTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Iskola OM", "Iskola neve", "Település", "Megye", "Fenntartó", "Cím", "Feladat", "Aktív"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        iskolaTable.setPreferredSize(new java.awt.Dimension(300, 300));
+        iskolaTable.setShowGrid(true);
+        jScrollPane1.setViewportView(iskolaTable);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Főablak");
@@ -175,33 +205,6 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        iskolaTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Iskola OM", "Iskola neve", "Település", "Megye", "Fenntartó", "Cím", "Feladat", "Aktív"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        iskolaTable.setPreferredSize(new java.awt.Dimension(300, 300));
-        iskolaTable.setShowGrid(true);
-        jScrollPane1.setViewportView(iskolaTable);
-
         jLabel6.setText("Név:");
 
         kereso_sor.setEnabled(false);
@@ -227,7 +230,6 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lekerdez_Button, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -282,9 +284,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(kereso_sor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(aktiv_CheckBox))
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(313, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Lekérdezés", jPanel1);
@@ -601,6 +601,15 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Feladatok generálása");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        Osztaly.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "10", "11", "12" }));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -608,14 +617,21 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(195, 195, 195)
                 .addComponent(jButton2)
-                .addContainerGap(584, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
+                .addComponent(Osztaly, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addGap(167, 167, 167))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(229, 229, 229)
-                .addComponent(jButton2)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(Osztaly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(241, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dolgozat generátor", jPanel5);
@@ -757,6 +773,13 @@ controler.iskfeltoltes(iskom_TextField, iskneve_TextField, iskmegye_TextField, i
 controler.fenntartFeltolt(fenntnev_TextField,fennttip_TextField);
     }//GEN-LAST:event_fenntartofeltoltes_Button1ActionPerformed
 
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+       
+        Osz=(String) Osztaly.getSelectedItem();
+        
+        new Fel_Letoltes().setVisible(true);
+    }//GEN-LAST:event_jButton3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -797,6 +820,7 @@ controler.fenntartFeltolt(fenntnev_TextField,fennttip_TextField);
                                                                                        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton IskTanDiag_Button;
+    private javax.swing.JComboBox<String> Osztaly;
     private javax.swing.JCheckBox aktiv_CheckBox;
     private javax.swing.JTextField diakannya_TextField;
     private javax.swing.JButton diakfeltoltes_Button;
@@ -823,6 +847,7 @@ controler.fenntartFeltolt(fenntnev_TextField,fennttip_TextField);
     private javax.swing.JComboBox<String> isktelep_ComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
