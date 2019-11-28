@@ -132,7 +132,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="PDF-be ment&#xe9;s"/>
+        <Property name="text" type="java.lang.String" value="JPG-be ment&#xe9;s"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton1MouseClicked"/>

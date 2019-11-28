@@ -85,7 +85,7 @@ public class Fel_Letoltes extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setText("PDF-be mentés");
+        jButton1.setText("JPG-be mentés");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
